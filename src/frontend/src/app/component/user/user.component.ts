@@ -3,9 +3,9 @@ import {State} from 'src/app/interface/state';
 import {UserService} from 'src/app/service/user.service';
 import {Observable, of, BehaviorSubject, map, startWith, catchError} from 'rxjs';
 import {NgForm} from "@angular/forms";
-import {DataState} from "../../../enum/dataStates.enum";
-import {CustomHttpResponse, Profile} from "../../../interface/appStates";
-import {EventType} from "../../../enum/event-type.enum";
+import {DataState} from "../../enum/dataStates.enum";
+import {CustomHttpResponse, Profile} from "../../interface/appStates";
+import {EventType} from "../../enum/event-type.enum";
 
 @Component({
   selector: 'app-profile',

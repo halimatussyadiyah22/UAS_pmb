@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, catchError, map, of, startWith, switchMap } from 'rxjs';
 import {BiodataState, CustomHttpResponse} from 'src/app/interface/appStates';
 import { State } from 'src/app/interface/state';
-import {BiodataService} from "../../../service/biodata.service";
+import {BiodataService} from "../../service/biodata.service";
 import { DataState } from 'src/app/enum/dataStates.enum';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';

@@ -2,11 +2,10 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of, startWith } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import {LoginState} from "../../../interface/appStates";
-import {DataState} from "../../../enum/dataStates.enum";
-import {UserService} from "../../../service/user.service";
-import {Key} from "../../../enum/key";
-import {NotificationService} from "../../../service/notification.service";
+import {LoginState} from "../../interface/appStates";
+import {DataState} from "../../enum/dataStates.enum";
+import {UserService} from "../../service/user.service";
+import {Key} from "../../enum/key";
 
 @Component({
   selector: 'app-login',
@@ -21,14 +20,13 @@ export class LoginComponent implements OnInit{
   private emailSubject = new BehaviorSubject<string | null>(null);
   readonly DataState = DataState;
 
-  constructor(private router: Router, private userService: UserService,private notification: NotificationService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
     login(loginForm: NgForm): void {
         this.loginState$ = this.userService.login$(loginForm.value.email, loginForm.value.password)
             .pipe(
                 map(response => {
                     if (response.data.user.usingMfa) {
-                        this.notification.onDefault(response.message);
                         this.phoneSubject.next(response.data.user.phone);
                         this.emailSubject.next(response.data.user.email);
                         return {
@@ -36,7 +34,6 @@ export class LoginComponent implements OnInit{
                             phone: response.data.user.phone.substring(response.data.user.phone.length - 4)
                         };
                     } else {
-                        this.notification.onDefault(response.message);
                         localStorage.setItem(Key.TOKEN, response.data.access_token);
                         localStorage.setItem(Key.REFRESH_TOKEN, response.data.refresh_token);
                         this.router.navigate(['/']);
@@ -45,7 +42,6 @@ export class LoginComponent implements OnInit{
                 }),
                 startWith({dataState: DataState.LOADING, isUsingMfa: false}),
                 catchError((error: string) => {
-                    this.notification.onError(error);
                     return of({dataState: DataState.ERROR, isUsingMfa: false, loginSuccess: false, error})
                 })
             )

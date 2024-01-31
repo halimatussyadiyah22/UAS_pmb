@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxjs';
 import { CustomHttpResponse } from 'src/app/interface/appStates';
 import { State } from 'src/app/interface/state';
-import {Biodata} from "../../../interface/biodata";
+import {Biodata} from "../../interface/biodata";
 import { User } from 'src/app/interface/user';
 import { DataState } from 'src/app/enum/dataStates.enum';
 import { BiodataService } from 'src/app/service/biodata.service';

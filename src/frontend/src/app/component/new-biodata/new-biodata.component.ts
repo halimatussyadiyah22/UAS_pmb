@@ -4,10 +4,10 @@ import { DataState } from 'src/app/enum/dataStates.enum';
 import { CustomHttpResponse, Page } from 'src/app/interface/appStates';
 import { State } from 'src/app/interface/state';
 import { User } from 'src/app/interface/user';
-import {BiodataService} from "../../../service/biodata.service";
+import {BiodataService} from "../../service/biodata.service";
 import { NgForm } from '@angular/forms';
-import {Biodata} from "../../../interface/biodata";
-import {Stats} from "../../../interface/stats";
+import {Biodata} from "../../interface/biodata";
+import {Stats} from "../../interface/stats";
 
 @Component({
   selector: 'app-new-biodata',
