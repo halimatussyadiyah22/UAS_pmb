@@ -1,0 +1,70 @@
+<ng-container *ngIf="(cardState$ | async) as state" [ngSwitch]="state.dataState">
+    <ng-container *ngSwitchCase="DataState.LOADED">
+        <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+        <section>
+            <div class="container">
+                <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"> <a [routerLink]="['/']">Home</a> </li>
+                        <li class="breadcrumb-item active"> Kartu </li>
+                    </ol>
+                </nav>
+                <div class="row mt-3">
+                    <div class="col">
+                        <h4 class="fw-bold text-start">Kartu</h4>
+                    </div>
+                    <div class="col">
+                        <h4 class="fw-bold text-end"><i style="cursor: pointer;color: green;font-size: 30px;" class="bi bi-file-earmark-excel"></i></h4>
+                    </div>
+                    <div class="col-xm-12">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Alamat</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Waktu</th>
+                                <th scope="col">Ruang</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-body">
+                            <tr *ngFor="let card of state?.appData?.data?.page.content" class="cell-1">
+                                <td>{{ card.biodata.nama }}</td>
+                                <td>{{ card.biodata.email }}</td>
+                                <td>{{ card.biodata.alamat }}</td>
+                                <td>{{ card.username }}</td>
+                                <td>${{ invoice.total }}</td>
+                                <td>{{ card.tanggal | date: 'mediumDate' }}</td>
+                                <td>${{ card.waktu }}</td>
+                                <td>${{ card.ruang }}</td>
+                                <td>
+                                    <button [routerLink]="['/cards', card.id, card.username]" type="button" class="btn btn-info btn-sm">Print</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <nav *ngIf="state?.appData?.data?.page.content.length > 0" aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li [ngClass]="0 == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
+                                    <a (click)="goToNextOrPreviousPage('backward')" class="page-link">&laquo; Prev</a>
+                                </li>
+                                <li *ngFor="let pageNumber of [].constructor(state?.appData?.data?.page.totalPages); let i = index;" class="page-item pointer">
+                                    <a (click)="goToPage(i)" [ngClass]="i == (currentPage$ | async) ? ' active' : ''" class="page-link">
+                                        {{ i + 1 }}
+                                    </a>
+                                </li>
+                                <li [ngClass]="(state?.appData?.data?.page.totalPages - 1) == (currentPage$ | async) ? ' disabled' : ''" class="page-item pointer">
+                                    <a (click)="goToNextOrPreviousPage('forward')" class="page-link">Next &raquo;</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
+
+application:
+  title: User Management
+  version: 1.0
+

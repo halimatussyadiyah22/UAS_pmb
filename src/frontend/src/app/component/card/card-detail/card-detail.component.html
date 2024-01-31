@@ -1,0 +1,52 @@
+<ng-container *ngIf="(invoiceState$ | async) as state" [ngSwitch]="state.dataState">
+    <ng-container *ngSwitchCase="DataState.LOADED">
+        <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+        <section>
+            <div class="container">
+                <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/card']">Kartu</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ state?.appData?.data?.invoice.invoiceNumber }}
+                        </li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="invoice">
+                            <div class="invoice-company text-inverse f-w-600">
+                 <span>
+                 <a (click)="exportAsPDF()" class="btn btn-sm btn-white m-b-10 p-l-5"
+                    style="font-weight: 500;background-color: #d6e0e5;color: #ea0c4b;">
+                    <i class="bi bi-file-earmark-pdf-fill" style="color: #ea0c4b;"></i>
+                     Export as PDF
+                 </a>
+                 </span>
+                            </div>
+                            <hr>
+                            <div class="card" *ngFor="let card of card">
+                                <div class="card-header">
+                                    <h2>{{ card.username }}</h2>
+                                </div>
+                                <div class="card-content">
+                                    <p>Password: {{ card.password }}</p>
+                                    <p>Tanggal: {{ card.tanggal | date }}</p>
+                                    <p>Waktu: {{ card.waktu }}</p>
+                                    <p>Ruang: {{ card.ruang }}</p>
+                                    <h3>Biodata:</h3>
+                                    <ul>
+                                        <li *ngFor="let bio of card.biodata">
+                                            <p>Nama: {{ bio.nama }}</p>
+                                            <p>Email: {{ bio.email }}</p>
+                                            <p>Alamat: {{ bio.alamat }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+</ng-container>

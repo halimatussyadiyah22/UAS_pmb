@@ -1,0 +1,49 @@
+jwt:
+  secret: mysupercomplexsecret
+
+server:
+  error:
+    path: /user/error
+    whitelabel:
+      enabled: false
+
+
+spring:
+  #  autoconfigure:
+  #    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/PMB
+    username: postgres
+    password: 1234567890
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        globally_quoted_identifiers: true
+        format_sql: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+
+  sql:
+    init:
+      mode: never
+      continue-on-error: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: halimahsyadiyah2202@gmail.com
+    password: kozbazxdvgvbitmj
+    properties:
+      mail:
+        smtp:
+          writetimeout: 5000
+          connectiontimeout: 5000
+          timeout: 5000
+          auth: true
+          starttls:
+            enable: true
+            required: true

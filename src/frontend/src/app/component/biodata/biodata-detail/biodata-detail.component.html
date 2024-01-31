@@ -1,0 +1,185 @@
+<ng-container *ngIf="(biodataState$ | async) as state" [ngSwitch]="state.dataState">
+    <ng-container *ngSwitchCase="DataState.LOADED">
+        <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+        <section>
+            <div class="container">
+                <nav aria-label="breadcrumb" style="margin-top: 8px;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/biodata']">Biodata</a></li>
+                        <li aria-current="page" class="breadcrumb-item active">{{ state?.appData?.data?.biodata.nama }}</li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Profile Details</h5>
+                                <form #biodataForm="ngForm" (ngSubmit)="updateBiodata(biodataForm)">
+                                    <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.id" name="id"
+                                           type="hidden">
+                                    <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.createdAt" name="createdAt"
+                                           type="hidden">
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="nama">Nama</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.nama" class="form-control"
+                                                   name="nama"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="tempatLahir">Tempat Lahir</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.tempatLahir" class="form-control"
+                                                   name="tempatLahir"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="tanggalLahir">Tanggal Lahir</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.tanggalLahir" class="form-control"
+                                                   name="tanggalLahir"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="jk">Jenis Kelamin</label>
+                                        <div class="col-sm-9">
+                                            <select [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.jk" class="form-control"
+                                                    id="jk"
+                                                    class="p-dropdown w-full custom-select mb-3"
+                                            >
+                                                <option value="">Select an Option</option>
+                                                <option value="MALE">MALE</option>
+                                                <option value="FEMALE">FEMALE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="agama">Agama</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.agama" class="form-control"
+                                                   name="agama"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="alamat">Alamat</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.alamat" class="form-control"
+                                                   name="alamat"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="email">Email</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.email" class="form-control"
+                                                   name="email"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="hobi">Hobi</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.email" class="form-control"
+                                                   name="hobi"
+                                                   type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="anakKe">Anak ke</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.anakKe" class="form-control"
+                                                   name="anakKe"
+                                                   type="number">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="jmlSaudara">Jumlah Saudara</label>
+                                        <div class="col-sm-9">
+                                            <input [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.jmlSaudara" class="form-control"
+                                                   name="jmlSaudara"
+                                                   type="number">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="statusKawin">Status Kawin</label>
+                                        <div class="col-sm-9">
+                                            <select [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.statusKawin" class="form-control"
+                                                    id="statusKawin"
+                                                    class="p-dropdown w-full custom-select mb-3"
+                                            >
+                                                <option value="">Select an Option</option>
+                                                <option value="BELUM_KAWIN">Belum Kawin</option>
+                                                <option value="KAWIN">Kawin</option>
+                                                <option value="DUDA">Duda</option>
+                                                <option value="JANDA">Janda</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label" for="statusVerifikasi">Status Verifikasi</label>
+                                        <div class="col-sm-9">
+                                            <select [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)" [ngModel]="state?.appData?.data?.biodata.statusVerifikasi" class="form-control"
+                                                    id="statusVerifikasi"
+                                                    class="p-dropdown w-full custom-select mb-3">
+                                                <option value="">Select an Option</option>
+                                                <option value="TRUE">Yes</option>
+                                                <option value="FALSE">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button [disabled]="state?.appData?.data?.user.roleName === 'ROLE_MAHASISWA' || (isLoading$ | async)"
+                                            class="btn btn-primary float-end" type="submit">
+                    <span *ngIf="isLoading$ | async" aria-hidden="true" class="spinner-border spinner-border-sm"
+                          role="status" style="margin-right: 5px;"></span>
+                                        <span *ngIf="isLoading$ | async">Loading...</span>
+                                        <span *ngIf="!(isLoading$ | async)">Update</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Kartu Peserta</h6>
+                                <table class="table table-hover">
+                                    <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Waktu</th>
+                                        <th scope="col">Ruang</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let card of state?.appData?.data?.biodata.card">
+                                        <td>{{ card.username }}</td>
+                                        <td>{{ card.password }}</td>
+                                        <td>{{ card.tanggal }}</td>
+                                        <td>{{ card.waktu }}</td>
+                                        <td>{{ card.ruang }}</td>
+                                        <td>
+                                            <button [routerLink]="['/card', card.id, carde.username]" class="btn btn-info btn-sm"
+                                                    type="button">Print
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+</ng-container>
