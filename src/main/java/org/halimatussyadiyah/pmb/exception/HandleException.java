@@ -75,14 +75,26 @@ public class HandleException extends ResponseEntityExceptionHandler implements E
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<HttpResponse> badCredentialsException(BadCredentialsException exception) {
         log.error(exception.getMessage());
-        return new ResponseEntity<>(
-                HttpResponse.builder()
-                        .timeStamp(now().toString())
-                        .reason(exception.getMessage() + ", Incorrect email or password")
-                        .developerMessage(exception.getMessage())
-                        .status(BAD_REQUEST)
-                        .statusCode(BAD_REQUEST.value())
-                        .build(), BAD_REQUEST);
+        if (exception.getMessage().contains("email")) {
+            return new ResponseEntity<>(
+                    HttpResponse.builder()
+                            .timeStamp(now().toString())
+                            .reason("user tidak terdaftar")
+                            .developerMessage(exception.getMessage())
+                            .status(BAD_REQUEST)
+                            .statusCode(BAD_REQUEST.value())
+                            .build(), BAD_REQUEST);
+        } else {
+            // Default message for other cases (e.g., incorrect password)
+            return new ResponseEntity<>(
+                    HttpResponse.builder()
+                            .timeStamp(now().toString())
+                            .reason("username dan password tidak sesuai")
+                            .developerMessage(exception.getMessage())
+                            .status(BAD_REQUEST)
+                            .statusCode(BAD_REQUEST.value())
+                            .build(), BAD_REQUEST);
+        }
     }
 
     @ExceptionHandler(ApiException.class)

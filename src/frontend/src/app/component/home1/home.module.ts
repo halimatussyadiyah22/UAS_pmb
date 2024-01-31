@@ -8,6 +8,6 @@ import {NavbarModule} from "../navbar/navbar.module";
 
 @NgModule({
   declarations: [ HomeComponent ],
-    imports: [SharedModule, HomeRoutingModule, NavbarComponent, StatsModule, NavbarModule]
+    imports: [SharedModule, HomeRoutingModule, NavbarModule, StatsModule]
 })
 export class HomeModule {}
