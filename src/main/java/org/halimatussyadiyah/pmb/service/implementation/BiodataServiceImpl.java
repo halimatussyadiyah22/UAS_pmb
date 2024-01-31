@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.halimatussyadiyah.pmb.domain.Biodata;
 import org.halimatussyadiyah.pmb.domain.Card;
+import org.halimatussyadiyah.pmb.domain.Dokumen;
 import org.halimatussyadiyah.pmb.domain.Stats;
 import org.halimatussyadiyah.pmb.repository.BiodataRepository;
 import org.halimatussyadiyah.pmb.repository.CardRepository;
+import org.halimatussyadiyah.pmb.repository.DokumenRepository;
 import org.halimatussyadiyah.pmb.rowmapper.StatsRowMapper;
 import org.halimatussyadiyah.pmb.service.BiodataService;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ import static org.springframework.data.domain.PageRequest.of;
 public class BiodataServiceImpl implements BiodataService {
     private final BiodataRepository biodataRepository;
     private final CardRepository cardRepository;
+    private final DokumenRepository dokumenRepository;
     private final NamedParameterJdbcTemplate jdbc;
     @Override
     public Biodata createBiodata(Biodata biodata) {
@@ -54,6 +57,11 @@ public class BiodataServiceImpl implements BiodataService {
     @Override
     public Iterable<Card> getCards() {
         return cardRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Dokumen> getDokumens() {
+        return dokumenRepository.findAll();
     }
 
     @Override
@@ -87,6 +95,28 @@ public class BiodataServiceImpl implements BiodataService {
     public Card getCard(Long id) {
         return cardRepository.findById(id).get();
     }
+
+    @Override
+    public Dokumen createDokumen(Dokumen dokumen) {
+        return dokumenRepository.save(dokumen);
+    }
+
+    @Override
+    public Page<Dokumen> getDokumens(int page, int size) {
+        return dokumenRepository.findAll(of(page, size));
+    }
+
+    @Override
+    public void addDokumenToBiodata(Long id, Dokumen dokumen) {
+        Biodata biodata= biodataRepository.findById(id).get();
+        dokumen.setBiodata(biodata);
+    }
+
+    @Override
+    public Dokumen getDokumen(Long id) {
+        return dokumenRepository.findById(id).get();
+    }
+
 
     @Override
     public Stats getStats() {

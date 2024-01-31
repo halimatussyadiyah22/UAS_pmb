@@ -8,6 +8,7 @@ import org.halimatussyadiyah.pmb.domain.HttpResponse;
 import org.halimatussyadiyah.pmb.dto.UserDTO;
 import org.halimatussyadiyah.pmb.report.BiodataReport;
 import org.halimatussyadiyah.pmb.report.CardReport;
+import org.halimatussyadiyah.pmb.report.DokumenReport;
 import org.halimatussyadiyah.pmb.service.BiodataService;
 import org.halimatussyadiyah.pmb.service.UserService;
 import org.springframework.core.io.Resource;
@@ -201,5 +202,89 @@ public class BiodataResource {
         return ResponseEntity.ok().contentType(parseMediaType("application/vnd.ms-excel"))
                 .headers(headers).body(report.export());
     }
+    @PostMapping("/dokumen/created")
+    public ResponseEntity<HttpResponse> createDokumen(@AuthenticationPrincipal UserDTO user,
+                                                   @RequestBody Dokumen dokumen) {
+        return ResponseEntity.created(URI.create(""))
+                .body(
+                        HttpResponse.builder()
+                                .timeStamp(now().toString())
+                                .data(of("user", userService.getUserByEmail(user.getEmail()),
+                                        "dokumen", biodataService.createDokumen(dokumen)))
+                                .message("Dokumen created")
+                                .status(CREATED)
+                                .statusCode(CREATED.value())
+                                .build());
+    }
+
+    @GetMapping("/dokumen/new")
+    public ResponseEntity<HttpResponse> newDokumen(@AuthenticationPrincipal UserDTO user) {
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(now().toString())
+                        .data(of("user", userService.getUserByEmail(user.getEmail()),
+                                "cards", biodataService.getBiodata()))
+                        .message("Cards retrieved")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build());
+    }
+
+    @GetMapping("/dokumen/list")
+    public ResponseEntity<HttpResponse> getDokumens(@AuthenticationPrincipal UserDTO user,
+                                                 @RequestParam Optional<Integer> page,
+                                                 @RequestParam Optional<Integer> size) {
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(now().toString())
+                        .data(of("user", userService.getUserByEmail(user.getEmail()),
+                                "page", biodataService.getDokumens(page.orElse(0), size.orElse(10))))
+                        .message("Card retrieved")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build());
+    }
+
+    @GetMapping("/dokumen/get/{id}")
+    public ResponseEntity<HttpResponse> getDokumen(@AuthenticationPrincipal UserDTO user, @PathVariable("id") Long id) {
+        Dokumen dokumen = biodataService.getDokumen(id);
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(now().toString())
+                        .data(of("user", userService.getUserByEmail(user.getEmail()),
+                                "dokumen", dokumen, "biodata", dokumen.getBiodata()))
+                        .message("Dokumen retrieved")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build());
+    }
+
+    @PostMapping("/dokumen/addtobiodata/{id}")
+    public ResponseEntity<HttpResponse> addDokumenToBiodata(@AuthenticationPrincipal UserDTO user,
+                                                         @PathVariable("id") Long id,
+                                                         @RequestBody Dokumen dokumen) {
+        biodataService.addDokumenToBiodata(id, dokumen);
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(now().toString())
+                        .data(of("user", userService.getUserByEmail(user.getEmail()),
+                                "biodata", biodataService.getBiodata()))
+                        .message(String.format("dokumen added to customer with ID: %s", id))
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build());
+    }
+    @GetMapping("/download/dokumens")
+    public ResponseEntity<Resource> downloadDokumenReport() {
+        List<Dokumen> dokumens = new ArrayList<>();
+        biodataService.getDokumens().iterator().forEachRemaining(dokumens::add);
+        DokumenReport report = new DokumenReport(dokumens);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("File-Name", "invoices-report.xlsx");
+        headers.add(CONTENT_DISPOSITION, "attachment;File-Name=invoices-report.xlsx");
+        return ResponseEntity.ok().contentType(parseMediaType("application/vnd.ms-excel"))
+                .headers(headers).body(report.export());
+    }
+
 
 }
