@@ -3,6 +3,7 @@ package org.halimatussyadiyah.pmb.service;
 
 import org.halimatussyadiyah.pmb.domain.Biodata;
 import org.halimatussyadiyah.pmb.domain.Card;
+import org.halimatussyadiyah.pmb.domain.Dokumen;
 import org.halimatussyadiyah.pmb.domain.Stats;
 import org.springframework.data.domain.Page;
 
@@ -17,6 +18,8 @@ public interface BiodataService {
 
     Iterable<Biodata> getBiodata();
     Iterable<Card> getCards();
+    Iterable<Dokumen> getDokumens();
+
 
     Biodata getBiodata(Long id);
 
@@ -30,6 +33,13 @@ public interface BiodataService {
     void addCardToBiodata(Long id, Card card);
 
     Card getCard(Long id);
+    Dokumen createDokumen(Dokumen dokumen);
+
+    Page<Dokumen> getDokumens(int page, int size);
+
+    void addDokumenToBiodata(Long id, Dokumen dokumen);
+
+    Dokumen getDokumen(Long id);
 
 
     Stats getStats();
