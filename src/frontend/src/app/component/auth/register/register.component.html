@@ -13,13 +13,10 @@
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="email">First Name</label>
-                                <input type="text" [disabled]="state.dataState === DataState.LOADING" ngModel name="firstName" class="form-control" required minlength="2">
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label for="lastName" class="form-label">Last name</label>
-                                <input type="text" [disabled]="state.dataState === DataState.LOADING" ngModel name="lastName" class="form-control" required minlength="2">
+                                <label for="name" class="form-label">name</label>
+                                <input type="text" [disabled]="state.dataState === DataState.LOADING" ngModel name="name" class="form-control" required minlength="2">
                             </div>
                             <div class="form-outline mb-4">
                                 <label for="password" class="form-label">Email Address</label>
