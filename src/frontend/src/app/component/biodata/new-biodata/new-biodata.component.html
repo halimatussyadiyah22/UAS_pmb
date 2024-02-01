@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button [disabled]="state.dataState === DataState.LOADING || newBiodataForm.invalid || newBiodataForm.pristine|| (isLaoding$ | async)"
+                                        <button
                                                 type="submit" class="btn btn-primary mt-5">
                                             <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
                                                   role="status" aria-hidden="true" style="margin-right: 5px;"></span>

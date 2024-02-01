@@ -8,6 +8,9 @@ import { DataState } from 'src/app/enum/dataStates.enum';
 import { Router } from '@angular/router';
 import { BiodataService } from 'src/app/service/biodata.service';
 import { NgForm } from '@angular/forms';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { NotificationService } from 'src/app/service/notification.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-biodatas',
@@ -26,8 +29,9 @@ export class BiodatasComponent implements OnInit{
   private showLogsSubject = new BehaviorSubject<boolean>(false);
   showLogs$ = this.showLogsSubject.asObservable();
   readonly DataState = DataState;
+  private fileStatusSubject = new BehaviorSubject<{ status: string, type: string, percent: number }>(undefined);
 
-  constructor(private router: Router, private biodataService: BiodataService) { }
+  constructor(private router: Router, private biodataService: BiodataService, private notification: NotificationService) { }
 
   ngOnInit(): void {
     this.customersState$ = this.biodataService.searchBiodatas$()
@@ -83,5 +87,43 @@ export class BiodatasComponent implements OnInit{
   selectCustomer(biodata: Biodata): void {
     this.router.navigate([`/biodatas/${biodata.id}`]);
   }
+    report(): void {
+        this.customersState$ = this.biodataService.downloadBiodatas$()
+            .pipe(
+                map(response => {
+                    console.log(response);
+                    this.reportProgress(response);
+                    return {dataState: DataState.LOADED, appData: this.dataSubject.value};
+                }),
+                startWith({dataState: DataState.LOADED, appData: this.dataSubject.value}),
+                catchError((error: string) => {
+                    this.notification.onError(error);
+                    return of({dataState: DataState.LOADED, error, appData: this.dataSubject.value})
+                })
+            )
+    }
+    private reportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
+        switch (httpEvent.type) {
+            case HttpEventType.DownloadProgress || HttpEventType.UploadProgress:
+                this.fileStatusSubject.next({
+                    status: 'progress',
+                    type: 'Downloading...',
+                    percent: Math.round(100 * httpEvent.loaded / httpEvent.total)
+                });
+                break;
+            case HttpEventType.ResponseHeader:
+                console.log('Got response Headers', httpEvent);
+                break;
+            case HttpEventType.Response:
+                this.notification.onDefault('Downloading file...');
+                saveAs(new File([<Blob>httpEvent.body], httpEvent.headers.get('File-Name'),
+                    {type: `${httpEvent.headers.get('Content-Type')};charset-utf-8`}));
+                this.fileStatusSubject.next(undefined);
+                break;
+            default:
+                console.log(httpEvent);
+                break;
+        }
+    }
 
 }

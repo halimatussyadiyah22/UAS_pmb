@@ -8,22 +8,21 @@
                         <li class="breadcrumb-item">
                             <a [routerLink]="['/']">Home</a>
                         </li>
-                        <li class="breadcrumb-item active"> Customers</li>
+                        <li class="breadcrumb-item active"> Biodata</li>
                     </ol>
                 </nav>
                 <div class="row mt-3">
                     <div class="col">
-                        <h4 class="fw-bold text-start">Customers</h4>
+                        <h4 class="fw-bold text-start">Biodata</h4>
                     </div>
                     <div class="col">
-                        <h4 class="fw-bold text-end"><i class="bi bi-file-earmark-excel"
-                                                        style="cursor: pointer;color: green;font-size: 30px;"></i></h4>
+                        <h4 (click)="report()" class="fw-bold text-end"><i class="bi bi-file-earmark-excel" style="cursor: pointer;color: green;font-size: 30px;"></i></h4>
                     </div>
                     <div class="col-xm-12">
                         <form #searchForm="ngForm" (ngSubmit)="searchCustomers(searchForm)" class="row g-3 float-end">
                             <div class="col-auto">
                                 <label class="visually-hidden" for="name"></label>
-                                <input #name class="form-control" name="name" ngModel placeholder="Customer Name" type="text">
+                                <input #name class="form-control" name="name" ngModel placeholder="Biodata Name" type="text">
                             </div>
                             <div class="col-auto">
                                 <button class="btn btn-primary mb-3" type="submit">Search Customers</button>
@@ -39,33 +38,42 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Tempat Lahir</th>
+                                <th scope="col">Tanggal Lahir</th>
+                                <th scope="col">Jenis kelamin</th>
+                                <th scope="col">Agama</th>
+                                <th scope="col">Alamat</th>
+                                <th scope="col">Hobi</th>
+                                <th scope="col">Anak Ke</th>
+                                <th scope="col">Jumlah Saudara</th>
+                                <th scope="col">Status Kawin</th>
+                                <th scope="col">Di Buat</th>
+                                <th scope="col">Status verifikasi</th>
+
                             </tr>
                             </thead>
                             <tbody class="table-body">
                             <tr *ngFor="let customer of state?.appData?.data?.page.content" class="cell-1">
                                 <th class="text-center">{{ customer.id }}</th>
-                                <td><img [alt]="customer.name" [src]="customer.imageUrl" class="rounded-circle" height="42" width="42">
+                                <td><img [alt]="customer.nama" [src]="customer.imageUrl" class="rounded-circle" height="42" width="42">
                                 </td>
-                                <td>{{ customer.name }}</td>
+                                <td>{{ customer.nama }}</td>
                                 <td>{{ customer.email }}</td>
                                 <td>{{ customer.phone }}</td>
+                                <td>{{ customer.tempatLahir }}</td>
+                                <td>{{ customer.tanggalLahir }}</td>
+                                <td>{{ customer.jk }}</td>
+                                <td>{{ customer.agama }}</td>
+                                <td>{{ customer.alamat }}</td>
+                                <td>{{ customer.hobi }}</td>
+                                <td>{{ customer.anakKe }}</td>
+                                <td>{{ customer.jmlSaudara }}</td>
+                                <td>{{ customer.statusKawin }}</td>
+                                <td>{{ customer.createdAt }}</td>
+                                <td>{{ customer.statusVerifikasi }}</td>
+
                                 <td>
-                   <span [ngClass]="[
-                        customer.status === 'ACTIVE' ? ' bg-success' : '',
-                        customer.status === 'PENDING' ? ' bg-primary' : '',
-                        customer.status === 'BANNED' ? ' bg-danger' : '',
-                        customer.status === 'INACTIVE' ? ' bg-info' : '',]"
-                         class="badge"
-                   >
-                      {{ customer.status }}
-                   </span>
-                                </td>
-                                <td>{{ customer.type }}</td>
-                                <td>
-                                    <button [routerLink]="['/customers', customer.id]" class="btn btn-info" type="button">View</button>
+                                    <button [routerLink]="['/biodatas', customer.id]" class="btn btn-info" type="button">View</button>
                                     <!--<button type="button" (click)="selectCustomer(customer)" class="btn btn-info">View</button>-->
                                 </td>
                             </tr>
