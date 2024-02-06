@@ -1,9 +1,9 @@
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00a0d1">
     <div class="container">
         <a class="navbar-brand" [routerLink]="['/']">
-            <i style="margin-right: 5px;" class="bi bi-safe"></i>
-            User Management Application
+            <i style="margin-right: 3px;"></i>
+            Pendaftaran Mahasiswa Baru
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -24,8 +24,26 @@
                         Kartu
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                        <li ><a class="dropdown-item" [routerLink]="['/cards/new']"><i style="padding-right: 8px;" class="bi bi-receipt"></i>Kartu Baru</a></li>
-                        <li><a class="dropdown-item" [routerLink]="['/cards']"><i style="padding-right: 8px;" class="bi bi-receipt-cutoff"></i>Kartu</a></li>
+                        <li ><a class="dropdown-item" [routerLink]="['/cards/new']"><i style="padding-right: 8px;" class="bi bi-card-heading"></i>Kartu Baru</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/cards']"><i style="padding-right: 8px;" class="bi bi-file-earmark-plus-fill"></i>Kartu</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dokumen
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                        <li ><a class="dropdown-item" [routerLink]="['/dokumen/new']"><i style="padding-right: 8px;" class="bi bi-receipt"></i>New Dokumen</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/dokumens']"><i style="padding-right: 8px;" class="bi bi-receipt-cutoff"></i>All Dokumen</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Users
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                        <li ><a class="dropdown-item" [routerLink]="['/user/new']"><i style="padding-right: 8px;" class="bi bi-person-plus-fill"></i>New Users</a></li>
+                        <li><a class="dropdown-item" [routerLink]="['/users']"><i style="padding-right: 8px;" class="bi bi-people-fill"></i>All Users</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

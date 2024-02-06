@@ -40,10 +40,10 @@
 
                                         <div class="col-md-6" style="margin-bottom: 15px;">
                                             <label>Biodata</label>
-                                            <select [ngModel]="" name="biodataId" class="form-control select-cl" required>
+                                            <select [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
+                                                    [ngModel]="" name="biodataId" class="form-control select-cl" required>
                                                 <option *ngFor="let biodatas of state?.appData?.data?.biodatas"
                                                         [ngValue]="biodatas.id"
-                                                        [selected]=""
                                                         [disabled]=""
                                                         class="select-cl">{{ biodatas.nama }}
                                                 </option>
@@ -52,36 +52,41 @@
                                         <div class="col-md-6" style="margin-bottom: 15px;">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input type="text" ngModel name="username" class="form-control" required>
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
+                                                       type="text" ngModel name="username" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6" style="margin-bottom: 15px;">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="text" ngModel name="password" class="form-control" required>
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
+                                                       type="text" ngModel name="password" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6" style="margin-bottom: 15px;">
                                             <div class="form-group">
                                                 <label>Tanggal</label>
-                                                <input type="date" ngModel name="tanggal" class="form-control" required>
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
+                                                       type="date" ngModel name="tanggal" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6" style="margin-bottom: 15px;">
                                             <div class="form-group">
                                                 <label>Waktu</label>
-                                                <input type="time" ngModel name="waktu" class="form-control" required>
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN' ) || (isLoading$ | async)"
+                                                       type="time" ngModel name="waktu" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6" style="margin-bottom: 15px;">
                                             <div class="form-group">
                                                 <label>Ruang</label>
-                                                <input type="text" ngModel name="ruang" class="form-control" required>
+                                                <input [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
+                                                        type="text" ngModel name="ruang" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <button [disabled]="state.dataState === DataState.LOADING || newcardForm.invalid || newcardForm.pristine|| (isLaoding$ | async)"
+                                        <button [disabled]="!(state?.appData?.data?.user?.roleName === 'ROLE_SYSADMIN') || (isLoading$ | async)"
                                                 type="submit" class="btn btn-primary mt-5">
                                             <span *ngIf="isLaoding$ | async" class="spinner-border spinner-border-sm"
                                                   role="status" aria-hidden="true" style="margin-right: 5px;"></span>

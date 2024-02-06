@@ -7,8 +7,8 @@ import {BiodataDetailComponent} from "./biodata-detail/biodata-detail.component"
 
 const customerRoutes: Routes = [
   { path: 'biodatas', component: BiodatasComponent, canActivate: [AuthenticationGuard] },
-  { path: 'biodatas/new', component: NewBiodataComponent, canActivate: [AuthenticationGuard] },
-  { path: 'biodatas/:id', component: BiodataDetailComponent, canActivate: [AuthenticationGuard] }
+  { path: 'biodata/new', component: NewBiodataComponent, canActivate: [AuthenticationGuard] },
+  { path: 'biodata/:id', component: BiodataDetailComponent, canActivate: [AuthenticationGuard] }
 ];
 
 @NgModule({
