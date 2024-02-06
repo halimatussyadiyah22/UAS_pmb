@@ -42,7 +42,7 @@ export class BiodataService {
               tap(console.log),
               catchError(this.handleError)
           );
-    searchBiodatas$ = (name: string = '', page: number = 0) => <Observable<CustomHttpResponse<Page<Biodata> & User>>>
+  searchBiodatas$ = (name: string = '', page: number = 0) => <Observable<CustomHttpResponse<Page<Biodata> & User>>>
         this.http.get<CustomHttpResponse<Page<Biodata> & User>>
         (`${this.server}/biodata/search?name=${name}&page=${page}`)
             .pipe(

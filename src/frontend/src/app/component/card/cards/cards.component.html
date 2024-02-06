@@ -28,6 +28,9 @@
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Waktu</th>
                                 <th scope="col">Ruang</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Print</th>
+
                             </tr>
                             </thead>
                             <tbody class="table-body">
@@ -40,6 +43,15 @@
                                 <td>{{ card.tanggal | date: 'mediumDate' }}</td>
                                 <td>${{ card.waktu }}</td>
                                 <td>${{ card.ruang }}</td>
+                                <td> <div *ngIf="!card.isEdit">
+                                    <i class="pi pi-pencil px-1" aria-hidden="true" (click)="onEdit(card)" ></i>
+                                    <i class="pi pi-trash" aria-hidden="true" (click)="delete(data_santri)"></i>
+                                </div>
+                                    <div *ngIf="card.isEdit">
+                                        <button class="pi pi-check px-1" (click)="edit(card)"></button>
+                                        <button class="pi pi-times px-1" (click)="onCancel(data_santri)" ></button>
+                                    </div>
+                                </td>
                                 <td>
                                     <button [routerLink]="['/cards', card.id, card.username]" type="button" class="btn btn-info btn-sm">Print</button>
                                 </td>

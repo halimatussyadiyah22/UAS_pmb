@@ -84,7 +84,7 @@ export class BiodatasComponent implements OnInit{
     this.goToPage(direction === 'forward' ? this.currentPageSubject.value + 1 : this.currentPageSubject.value - 1, name);
   }
 
-  selectCustomer(biodata: Biodata): void {
+  selectBiodata(biodata: Biodata): void {
     this.router.navigate([`/biodatas/${biodata.id}`]);
   }
     report(): void {

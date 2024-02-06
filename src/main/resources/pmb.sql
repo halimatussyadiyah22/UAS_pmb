@@ -5,7 +5,7 @@ create table Users(
     phone varchar(100) not null ,
     password varchar(100) not null ,
     address varchar(100) not null ,
-    enabled    BOOLEAN      DEFAULT FALSE,
+    enabled    BOOLEAN      DEFAULT TRUE,
     non_locked BOOLEAN      DEFAULT TRUE,
     using_mfa  BOOLEAN      DEFAULT FALSE,
     created_at TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
